@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para ti 💙</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(160deg, #4b0f1f, #1a1f3c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Georgia', serif;
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .card {
+      width: 90%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 22px;
+      padding: 26px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+      position: relative;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+    }
+
+    #text {
+      font-size: 1.1rem;
+      line-height: 1.65;
+      white-space: pre-line;
+      min-height: 220px;
+      text-align: left;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: #ffffff;
+      margin-left: 4px;
+      animation: blink 1s infinite;
+      vertical-align: bottom;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+
+    .heart-btn {
+      margin: 20px auto 0;
+      width: 70px;
+      height: 70px;
+      background: #c0395a;
+      border: none;
+      transform: rotate(-45deg);
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+      animation: pulse 1.5s infinite;
+      position: relative;
+    }
+
+    .heart-btn::before,
+    .heart-btn::after {
+      content: "";
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      background: #c0395a;
+      border-radius: 50%;
+    }
+
+    .heart-btn::before {
+      top: -35px;
+      left: 0;
+    }
+
+    .heart-btn::after {
+      left: 35px;
+      top: 0;
+    }
+
+    @keyframes pulse {
+      0% { transform: rotate(-45deg) scale(1); }
+      50% { transform: rotate(-45deg) scale(1.1); }
+      100% { transform: rotate(-45deg) scale(1); }
+    }
+
+    .next-btn {
+      display: none;
+      margin: 24px auto 0;
+      padding: 12px 24px;
+      border-radius: 22px;
+      border: none;
+      background: #c0395a;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+    }
+
+    .final {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(160deg, #4b0f1f, #1a1f3c);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .final.show {
+      display: flex;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .final p {
+      font-size: 1.4rem;
+      line-height: 1.6;
+    }
+
+    .firma {
+      margin-top: 20px;
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>Para ti 💙</h1>
+    <div id="text"></div><span class="cursor" id="cursor"></span>
+
+    <button class="heart-btn" id="startBtn"></button>
+    <button class="next-btn" id="nextBtn">Ver algo más 💌</button>
+  </div>
+
+  <div class="final" id="final">
+    <div>
+      <p>
+        Gracias por ser mi lugar seguro.<br>
+        Gracias por elegirme cada día.
+      </p>
+      <div class="firma">
+        — Jean 💙
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const message = `
+Hoy cumplimos ocho meses,
+y mientras escribo esto
+pienso en todo lo que hemos vivido.
+
+No ha sido solo lo bonito,
+sino también lo real.
+Los días en que nos hemos apoyado,
+las conversaciones largas,
+los silencios que también dijeron mucho.
+
+Ocho meses eligiéndonos,
+aprendiendo a caminar juntos,
+entendiendo que el amor
+no es perfección,
+es presencia.
+
+Gracias por quedarte,
+por cuidarme,
+por mirarme con ternura
+incluso cuando no soy fácil de amar.
+
+Hoy, después de todo lo vivido,
+te vuelvo a elegir.
+
+Feliz cumple mes, mi amor.
+Te amo.
+    `;
+
+    const speed = 100;
+    let i = 0;
+
+    const textEl = document.getElementById("text");
+    const startBtn = document.getElementById("startBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const cursor = document.getElementById("cursor");
+
+    function typeWriter() {
+      if (i < message.length) {
+        textEl.innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      } else {
+        cursor.style.display = "none";
+        nextBtn.style.display = "block";
+      }
+    }
+
+    startBtn.addEventListener("click", () => {
+      startBtn.style.display = "none";
+      typeWriter();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      document.getElementById("final").classList.add("show");
+    });
+  </script>
+
+</body>
+</html>
